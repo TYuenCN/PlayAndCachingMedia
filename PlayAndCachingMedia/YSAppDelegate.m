@@ -7,17 +7,38 @@
 //
 
 #import "YSAppDelegate.h"
-
+#import "MCMoviePlayerViewController.h"
+#import "YSRootViewController.h"
+#import <MediaPlayer/MPMoviePlayerViewController.h>
 @implementation YSAppDelegate
+@synthesize provider;
+
+- (void) provider:(YSCacheAbilityRemoteFileProvider *)provider  isStartCachingToLocalFileURL:(NSURL *)url
+{
+//    MPMoviePlayerViewController *mpvc = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+//    [self.window.rootViewController presentMoviePlayerViewControllerAnimated:mpvc];
+    
+    MCMoviePlayerViewController * mp = [[MCMoviePlayerViewController alloc] initWithContentURL:url];
+    mp.moviePlayer.controlStyle =  MPMovieControlStyleFullscreen;
+    [self.window.rootViewController  presentMoviePlayerViewControllerAnimated:mp];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = [[YSRootViewController alloc] init];
     [self.window makeKeyAndVisible];
+    
+    self.provider = [[YSCacheAbilityRemoteFileProvider alloc] initWithRemoteURL:[NSURL URLWithString:@"http://adfa.oss-cn-qingdao.aliyuncs.com/demo.mp4"]];
+    [provider setDelegate:self];
+    [provider prepareProvider];
+    
     return YES;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "YSCacheAbilityRemoteFileProvider.h"
 
 @interface PlayAndCachingMediaTests : XCTestCase
 
@@ -26,9 +27,10 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testYSCacheAbilityRemoteFileProviderInit
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    YSCacheAbilityRemoteFileProvider *provider = [[YSCacheAbilityRemoteFileProvider alloc] initWithRemoteURL:[NSURL URLWithString:@"http://adfa.oss-cn-qingdao.aliyuncs.com/demo.mp4"]];
 }
 
 @end
