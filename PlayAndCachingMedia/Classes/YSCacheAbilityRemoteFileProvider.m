@@ -1,8 +1,47 @@
 //
-//  YSCacheAbilityRemoteFileProvider.m
+//  YSCacheAbilityRemoteFileProvider.h
 //  PlayAndCachingMedia
 //
-//  Created by sxzw on 14-2-26.
+//  1、用远程资源的地址初始化本类，将创建ASIHTTPRequest对象，开始断点续传资源，并缓存到指定目录；
+//
+//  2、同时，在ASIHTTPRequest开始缓存前，即，在接到请求资源的头时，先获取资源的完整原始大小，作用：(1)用来判断是否是完全缓冲完的资源。
+//  (2)用来在提供HTTPServer服务，提供本缓存着的资源使用的时候，要返回头且包含资源的完整大小（此时资源可能还正在缓存，缓存的文件大小
+//  跟资源的实际大小不一样，这时通过本地HTTPServer请求这个资源，获取的HTTP响应头只是缓存的大小，例如提供给MoviePlayer使用，将可能加载
+//  不全视频。
+//
+//  3、判断资源缓存的状态，开启HTTPServer服务，拼接并返回URL给代理。
+//
+//  Warnning:
+//          Extend & Modified HTTPServer, So we have chance to modify the content length to real-remote-file-length that in response header.
+//          ASIHTTPRequest：没有继承，而进行了硬性修改，目的是在使用缓存的时候，下载完成不让其删除掉缓存文件。
+//                                      具体请看本项目的ASIHTTPRequest
+//
+//  E.X.:
+//
+//          - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+//          {
+//              //视频播放结束通知
+//              [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoFinished) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+//
+//              self.provider = [[YSCacheAbilityRemoteFileProvider alloc] initWithRemoteURL:[NSURL URLWithString:@"http://xxx.mp4"]];
+//              [provider setDelegate:self];
+//              [provider prepareProvider];
+//          }
+//          - (void) provider:(YSCacheAbilityRemoteFileProvider *)provider  isStartCachingToLocalFileURL:(NSURL *)url
+//          {
+//              MCMoviePlayerViewController * mp = [[MCMoviePlayerViewController alloc] initWithContentURL:url];
+//              mp.moviePlayer.controlStyle =  MPMovieControlStyleFullscreen;
+//              [mp.moviePlayer setShouldAutoplay:YES];
+//              [mp.moviePlayer prepareToPlay];
+//
+//              [self.window.rootViewController  presentMoviePlayerViewControllerAnimated:mp];
+//          }
+//          - (void)videoFinished
+//          {
+//              self.provider = nil;
+//          }
+//
+//  Created by TsengYuen on 14-2-26.
 //  Copyright (c) 2014年 YuenSoft. All rights reserved.
 //
 
@@ -14,9 +53,7 @@
 
 
 @interface YSCacheAbilityRemoteFileProvider() <ASIHTTPRequestDelegate>
-{
-    BOOL isNotCachedAnything;
-}
+
 @property (nonatomic, strong) NSURL *remoteURL;
 @property (nonatomic, strong) NSString *cachedFileName;
 @property (nonatomic, strong) NSString *cachedFilePath;
@@ -34,6 +71,12 @@
 @synthesize cacheInfoDic;
 @synthesize httpServer;
 
+#pragma mark - Lifecycle
+//
+//  Used the remote file's URL init this object;
+//
+//  使用远程文件资源的地址，初始化此对象；
+//
 - (id)initWithRemoteURL:(NSURL *)url
 {
     self = [super init];
@@ -48,6 +91,19 @@
     return self;
 }
 
+- (void)dealloc
+{
+    if (self.httpServer) {
+        [self.httpServer stop];
+    }
+    if (self.request) {
+        [self.request cancel];
+        [self.request clearDelegatesAndCancel];
+    }
+    
+}
+
+#pragma mark - Methods
 //
 //  是否存在缓存目录，不存在，创建
 //
@@ -110,7 +166,12 @@
 }
 
 //
-//  开始创建缓存文件，并开始下载
+//  Invoke This Massage, That Will Be Ready To Use。
+//
+//  此为入口方法：当调用后，开始检查；
+//      如是第一次调用的URL，将开始缓存并提供本地服务；
+//      如是已经缓存并没有缓存完成，则继续缓存，并提供本地服务；
+//      如是已经完全缓存过的，将直接返回本地文件的FileURL；
 //
 - (void)prepareProvider
 {
@@ -135,6 +196,7 @@
     if (cachedFileLength == [cachedFileRealLength longLongValue]) {
         NSURL *url = [NSURL fileURLWithPath:cachedFilePath];
         [self.delegate provider:self isStartCachingToLocalFileURL:url];
+        return;
     }
     else    //  不是缓存完成的文件，开始下载缓存的过程
     {
@@ -195,10 +257,7 @@
     }
 }
 
-- (void)dealloc
-{
-    [self.httpServer stop];
-}
+
 
 #pragma mark - ASIHTTPRequestDelegate
 - (void)request:(ASIHTTPRequest *)request didReceiveResponseHeaders:(NSDictionary *)responseHeaders

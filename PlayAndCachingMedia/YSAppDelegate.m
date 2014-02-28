@@ -20,9 +20,16 @@
     
     MCMoviePlayerViewController * mp = [[MCMoviePlayerViewController alloc] initWithContentURL:url];
     mp.moviePlayer.controlStyle =  MPMovieControlStyleFullscreen;
+    [mp.moviePlayer setShouldAutoplay:YES];
+    [mp.moviePlayer prepareToPlay];
+    
     [self.window.rootViewController  presentMoviePlayerViewControllerAnimated:mp];
 }
 
+- (void)videoFinished
+{
+    self.provider = nil;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -32,7 +39,10 @@
     self.window.rootViewController = [[YSRootViewController alloc] init];
     [self.window makeKeyAndVisible];
     
-    self.provider = [[YSCacheAbilityRemoteFileProvider alloc] initWithRemoteURL:[NSURL URLWithString:@"http://adfa.oss-cn-qingdao.aliyuncs.com/demo.mp4"]];
+    //视频播放结束通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoFinished) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    
+    self.provider = [[YSCacheAbilityRemoteFileProvider alloc] initWithRemoteURL:[NSURL URLWithString:@"http://xxx.mp4"]];
     [provider setDelegate:self];
     [provider prepareProvider];
     
