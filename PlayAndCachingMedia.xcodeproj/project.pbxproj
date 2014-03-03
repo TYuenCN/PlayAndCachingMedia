@@ -87,6 +87,7 @@
 		9FF0C61D18BF2B9400E1AC12 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0C5DC18BF2B9400E1AC12 /* README.txt */; };
 		9FF0C61E18BF2B9400E1AC12 /* ZWLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C5DE18BF2B9400E1AC12 /* ZWLogManager.m */; };
 		9FF0C61F18BF2B9400E1AC12 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C5E118BF2B9400E1AC12 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9FFFAE1318C48E7000817C08 /* YSASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFFAE1218C48E7000817C08 /* YSASIHTTPRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -253,6 +254,8 @@
 		9FF0C5DE18BF2B9400E1AC12 /* ZWLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWLogManager.m; sourceTree = "<group>"; };
 		9FF0C5E018BF2B9400E1AC12 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9FF0C5E118BF2B9400E1AC12 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		9FFFAE1118C48E7000817C08 /* YSASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSASIHTTPRequest.h; sourceTree = "<group>"; };
+		9FFFAE1218C48E7000817C08 /* YSASIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSASIHTTPRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +384,8 @@
 				9FF0C55318BF2B9400E1AC12 /* YSHTTPConnection.m */,
 				9FF0C55418BF2B9400E1AC12 /* YSHTTPFileResponse.h */,
 				9FF0C55518BF2B9400E1AC12 /* YSHTTPFileResponse.m */,
+				9FFFAE1118C48E7000817C08 /* YSASIHTTPRequest.h */,
+				9FFFAE1218C48E7000817C08 /* YSASIHTTPRequest.m */,
 			);
 			path = YSHTTPServer;
 			sourceTree = "<group>";
@@ -788,6 +793,7 @@
 				9FF0C60D18BF2B9400E1AC12 /* HTTPRedirectResponse.m in Sources */,
 				9FF0C5F018BF2B9400E1AC12 /* ASICloudFilesContainer.m in Sources */,
 				9FF0C5F818BF2B9400E1AC12 /* ASIS3BucketRequest.m in Sources */,
+				9FFFAE1318C48E7000817C08 /* YSASIHTTPRequest.m in Sources */,
 				9FF0C61418BF2B9400E1AC12 /* CLIColor.m in Sources */,
 				9FF0C60218BF2B9400E1AC12 /* HTTPConnection.m in Sources */,
 				9FF0C4FA18BDFDF300E1AC12 /* MCMoviePlayerViewController.m in Sources */,

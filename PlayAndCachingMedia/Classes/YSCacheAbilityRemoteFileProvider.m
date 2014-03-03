@@ -13,8 +13,6 @@
 //
 //  Warnning:
 //          Extend & Modified HTTPServer, So we have chance to modify the content length to real-remote-file-length that in response header.
-//          ASIHTTPRequest：没有继承，而进行了硬性修改，目的是在使用缓存的时候，下载完成不让其删除掉缓存文件。
-//                                      具体请看本项目的ASIHTTPRequest
 //
 //  E.X.:
 //
@@ -47,7 +45,7 @@
 
 #import "YSCacheAbilityRemoteFileProvider.h"
 #import "NSString+MD5Addition.h"
-#import "ASIHTTPRequest.h"
+#import "YSASIHTTPRequest.h"
 #import "HTTPServer.h"
 #import "YSHTTPConnection.h"
 
@@ -101,6 +99,13 @@
         [self.request clearDelegatesAndCancel];
     }
     
+    //
+    //  派发Notification－－释放资源，需要停止所有的操作。如：
+    //          在避免播放过程中，播放器请求本地正在下载并缓存的内容，请求的大小，比缓存的大－－
+    //      现在为在While内，循环等待缓存的数据足够播放器的本次请求才返回，在中途退出后，while循环能一直存在，
+    //      导致本对象及Response对象，一直存在；
+    //
+    [[NSNotificationCenter defaultCenter] postNotificationName:YSHTTP_CONNECTION_STOP_ALL_OPERATION object:nil];
 }
 
 #pragma mark - Methods
@@ -207,7 +212,7 @@
 
 - (void)startCaching
 {
-    self.request =[[ASIHTTPRequest alloc] initWithURL:self.remoteURL];
+    self.request =[[YSASIHTTPRequest alloc] initWithURL:self.remoteURL];
     //下载完存储目录
     [self.request setDownloadDestinationPath:self.cachedFilePath];
     //临时存储目录

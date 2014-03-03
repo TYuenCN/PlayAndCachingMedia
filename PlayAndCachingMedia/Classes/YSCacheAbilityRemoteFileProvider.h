@@ -13,8 +13,6 @@
 //
 //  Warnning:
 //          Extend & Modified HTTPServer, So we have chance to modify the content length to real-remote-file-length that in response header.
-//          ASIHTTPRequest：没有继承，而进行了硬性修改，目的是在使用缓存的时候，下载完成不让其删除掉缓存文件。
-//                                      具体请看本项目的ASIHTTPRequest
 //
 //  E.X.:
 //

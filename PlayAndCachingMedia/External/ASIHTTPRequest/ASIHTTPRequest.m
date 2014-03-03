@@ -3459,19 +3459,19 @@ static NSOperationQueue *sharedQueue = nil;
 		} else {
 	
 			//Remove any file at the destination path
-			//NSError *moveError = nil;
-			//if (![[self class] removeFileAtPath:[self downloadDestinationPath] error:&moveError]) {
-			//	fileError = moveError;
-			//}
+			NSError *moveError = nil;
+			if (![[self class] removeFileAtPath:[self downloadDestinationPath] error:&moveError]) {
+				fileError = moveError;
+			}
 
 			//Move the temporary file to the destination path
-			//if (!fileError) {
-			//	[[[[NSFileManager alloc] init] autorelease] moveItemAtPath:[self temporaryFileDownloadPath] toPath:[self downloadDestinationPath] error:&moveError];
-			//	if (moveError) {
-			//		fileError = [NSError errorWithDomain:NetworkRequestErrorDomain code:ASIFileManagementError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"Failed to move file from '%@' to '%@'",[self temporaryFileDownloadPath],[self downloadDestinationPath]],NSLocalizedDescriptionKey,moveError,NSUnderlyingErrorKey,nil]];
-			//	}
-			//	[self setTemporaryFileDownloadPath:nil];
-			//}
+			if (!fileError) {
+				[[[[NSFileManager alloc] init] autorelease] moveItemAtPath:[self temporaryFileDownloadPath] toPath:[self downloadDestinationPath] error:&moveError];
+				if (moveError) {
+					fileError = [NSError errorWithDomain:NetworkRequestErrorDomain code:ASIFileManagementError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"Failed to move file from '%@' to '%@'",[self temporaryFileDownloadPath],[self downloadDestinationPath]],NSLocalizedDescriptionKey,moveError,NSUnderlyingErrorKey,nil]];
+				}
+				[self setTemporaryFileDownloadPath:nil];
+			}
 			
 		}
 	}
