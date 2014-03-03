@@ -88,6 +88,7 @@
 		9FF0C61E18BF2B9400E1AC12 /* ZWLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C5DE18BF2B9400E1AC12 /* ZWLogManager.m */; };
 		9FF0C61F18BF2B9400E1AC12 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C5E118BF2B9400E1AC12 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9FFFAE1318C48E7000817C08 /* YSASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFFAE1218C48E7000817C08 /* YSASIHTTPRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9FFFAE1518C4964300817C08 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9FFFAE1418C4964300817C08 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,6 +257,7 @@
 		9FF0C5E118BF2B9400E1AC12 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		9FFFAE1118C48E7000817C08 /* YSASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSASIHTTPRequest.h; sourceTree = "<group>"; };
 		9FFFAE1218C48E7000817C08 /* YSASIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSASIHTTPRequest.m; sourceTree = "<group>"; };
+		9FFFAE1418C4964300817C08 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +341,7 @@
 		9FF0C3C118BDB5C100E1AC12 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9FFFAE1418C4964300817C08 /* README.md */,
 				9FF0C3C218BDB5C100E1AC12 /* PlayAndCachingMedia-Info.plist */,
 				9FF0C3C318BDB5C100E1AC12 /* InfoPlist.strings */,
 				9FF0C3C618BDB5C100E1AC12 /* main.m */,
@@ -741,6 +744,7 @@
 				9FF0C61318BF2B9400E1AC12 /* README-GHUnit in Resources */,
 				9FF0C3C518BDB5C100E1AC12 /* InfoPlist.strings in Resources */,
 				9FF0C4F718BDFC6E00E1AC12 /* YSRootViewController.xib in Resources */,
+				9FFFAE1518C4964300817C08 /* README.md in Resources */,
 				9FF0C5FC18BF2B9400E1AC12 /* About.txt in Resources */,
 				9FF0C61D18BF2B9400E1AC12 /* README.txt in Resources */,
 				9FF0C3CD18BDB5C100E1AC12 /* Images.xcassets in Resources */,
