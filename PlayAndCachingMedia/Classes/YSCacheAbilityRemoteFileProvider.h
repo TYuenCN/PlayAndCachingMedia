@@ -74,7 +74,7 @@
 //  进入本方法后，意味着已经开始缓存，并可以开始使用正在缓存或已经缓存完的数据；（播放视频）
 //
 @protocol YSCacheAbilityRemoteFileProviderDelegate
-- (void) provider:(YSCacheAbilityRemoteFileProvider *)provider  isStartCachingToLocalFileURL:(NSURL *)url;
+- (void) provider:(YSCacheAbilityRemoteFileProvider *)provider  isStartCachingUseLocalFileURL:(NSURL *)url localFilePath:(NSString *)path;
 @end
 
 #pragma mark - YSCacheAbilityRemoteFileProvider

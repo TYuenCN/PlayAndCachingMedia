@@ -200,7 +200,7 @@
     //  全部缓存完成，不应该开启HTTPServer了，直接返回本地地址
     if (cachedFileLength == [cachedFileRealLength longLongValue]) {
         NSURL *url = [NSURL fileURLWithPath:cachedFilePath];
-        [self.delegate provider:self isStartCachingToLocalFileURL:url];
+        [self.delegate provider:self isStartCachingUseLocalFileURL:url localFilePath:self.cachedFilePath];
         return;
     }
     else    //  不是缓存完成的文件，开始下载缓存的过程
@@ -254,7 +254,7 @@
         NSLog(@"Started HTTP Server on port %hu", [self.httpServer listeningPort]);
         // 通知代理对象，本地缓存的文件的URL
         NSURL *localCacheFileURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://127.0.0.1:%d/%@", [self.httpServer listeningPort], self.cachedFileName]];
-        [self.delegate provider:self isStartCachingToLocalFileURL:localCacheFileURL];
+        [self.delegate provider:self isStartCachingUseLocalFileURL:localCacheFileURL localFilePath:self.cachedFilePath];
     }
     else
     {

@@ -13,7 +13,7 @@
 @implementation YSAppDelegate
 @synthesize provider;
 
-- (void) provider:(YSCacheAbilityRemoteFileProvider *)provider  isStartCachingToLocalFileURL:(NSURL *)url
+- (void) provider:(YSCacheAbilityRemoteFileProvider *)provider  isStartCachingUseLocalFileURL:(NSURL *)url localFilePath:(NSString *)path
 {
 //    MPMoviePlayerViewController *mpvc = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
 //    [self.window.rootViewController presentMoviePlayerViewControllerAnimated:mpvc];
@@ -24,6 +24,11 @@
     [mp.moviePlayer prepareToPlay];
     
     [self.window.rootViewController  presentMoviePlayerViewControllerAnimated:mp];
+    
+    NSLog(@">>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    NSLog(@"LocalFileURL: %@", [url description]);
+    NSLog(@"LocalFilePath: %@", path);
+    NSLog(@">>>>>>>>>>>>>>>>>>>>>>>>>>>");
 }
 
 - (void)videoFinished
@@ -45,6 +50,11 @@
     self.provider = [[YSCacheAbilityRemoteFileProvider alloc] initWithRemoteURL:[NSURL URLWithString:@"http://adfa.oss-cn-qingdao.aliyuncs.com/60s.mp4"]];
     [provider setDelegate:self];
     [provider prepareProvider];
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@"Obj-1", @"Key-1", @"Obj-2", @"Key-2", nil];
+    for (NSString *key in dic) {
+        NSLog(@"%@", key);
+    }
     
     return YES;
 }
