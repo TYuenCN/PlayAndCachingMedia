@@ -52,15 +52,15 @@
 //  默认的Remote资源缓存的基准路径：
 //  /Library/Cache/YSMedia
 //
-#define DEFAULT_CACHE_DIRECTORY_PATH [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/YSMedia/"]
+#define DEFAULT_CACHE_DIRECTORY_PATH [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/YSCacheMedia/"]
 //
 //  归档文件中字典的Key；保存资源真实大小信息的字典；
 //
-#define CACHE_INFO_ARCHIVE_KEY @"cache_info.archiver"
+#define CACHE_INFO_ARCHIVE_KEY @"YSCacheMediaInfo.archiver"
 //
 //  归档文件名字；
 //
-#define CACHE_INFO_ARCHIVE_FILE_NAME @"cache_info.archiver"
+#define CACHE_INFO_ARCHIVE_FILE_NAME @"YSCacheMediaInfo.archiver"
 //
 //  归档文件全路径；
 //
